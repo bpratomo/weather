@@ -1,21 +1,25 @@
-import React, { FunctionComponent, useState } from "react";
-import { getWeather } from "../services/WeatherService";
-import {CurrentWeather} from "../interfaces/weatherInterface";
+import React, { FC, FunctionComponent, Props, useState } from "react";
+import { ICurrentWeather } from "../interfaces/weatherInterface";
+import { getWeatherIconLink } from "../services/WeatherService";
+import Button from "@material-ui/core/Button";
 
 type WeatherProps = {
-  cityName: string;
+  weather: ICurrentWeather | undefined;
 };
 
-export const WeatherCard: FunctionComponent<WeatherProps> = ({ cityName }) => {
- const [weather,setWeather] = useState<CurrentWeather | undefined>(undefined)
-  async function fetchWeather() {
-    const currentWeather = await getWeather("Amsterdam");
-    setWeather(currentWeather)
-    console.log(currentWeather);
-  }
-  
+export const WeatherCard: FunctionComponent<WeatherProps | undefined> = ({
+  weather,
+}) => {
+  const iconType = weather? weather.weather[0].icon : "";
+  const [iconLink, setIconLink] = useState(
+    weather ? getWeatherIconLink(iconType) : ""
+  );
 
-  return <div>
-      {weather ? weather.name: "no city selected"} 
-      <button onClick={fetchWeather}>Click to see Amsterdam</button></div>;
+  return (
+    <div>
+      <img src={iconLink} alt="" />
+      <h1>{weather?.name}</h1>
+      
+    </div>
+  );
 };
