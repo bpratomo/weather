@@ -14,14 +14,14 @@ export const TemperatureCard: FunctionComponent<WeatherProps> = ({
   };
 
   const tempMin: Reading = {
-    readingTitle: "Minimum",
+    readingTitle: "Min",
     readingValue: weather?.main.temp_min.toString() || "0",
     readingUnit: "°C",
     readingStyle: { backgroundColor: "lightsteelblue" },
   };
 
   const tempMax: Reading = {
-    readingTitle: "Maximum",
+    readingTitle: "Max",
     readingValue: weather?.main.temp_max.toString() || "0",
     readingUnit: "°C",
     readingStyle: { backgroundColor: "lightpink" },

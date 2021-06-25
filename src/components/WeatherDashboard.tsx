@@ -66,7 +66,7 @@ export const WeatherCards: FunctionComponent<WeatherProps> = ({ weather }) => {
     display: "flex",
     flexDirection: "row" as "row",
     flexWrap: "wrap" as "wrap",
-    justifyContent: "space-between",
+    justifyContent: "center",
   };
   return (
     <div

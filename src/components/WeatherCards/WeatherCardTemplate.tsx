@@ -21,7 +21,9 @@ export const WeatherCardTemplate: FunctionComponent<WeatherCardProps> = ({
   const miniCardStyle = {
     backgroundColor: "#b83b5e",
     border: "solid 1px black",
-    width: "48%",
+    width:"100%",
+    minWidth:"300px",
+    maxWidth:"400px",
     height: "200px",
     borderRadius: "30px",
     padding: "0.6em",
@@ -80,8 +82,19 @@ export const WeatherCardTemplate: FunctionComponent<WeatherCardProps> = ({
 
       {mainReadings ? (
         <div className="hero" style={heroStyle}>
-          {mainReadings.map((reading) => (
-            <div style={{ ...readingBaseStyle, ...reading.readingStyle }}>
+          {mainReadings.map((reading, index) => (
+            <div
+              id={reading.readingTitle}
+              style={
+                index === mainReadings.length - 1
+                  ? {
+                      ...readingBaseStyle,
+                      ...reading.readingStyle,
+                      borderRight: "none",
+                    }
+                  : { ...readingBaseStyle, ...reading.readingStyle }
+              }
+            >
               <div>{reading.readingTitle}</div>
               <div>
                 {reading.readingValue} {reading.readingUnit}
@@ -95,10 +108,18 @@ export const WeatherCardTemplate: FunctionComponent<WeatherCardProps> = ({
 
       {secondaryReadings ? (
         <div className="hero" style={heroStyle}>
-          {secondaryReadings.map((reading) => (
+          {secondaryReadings.map((reading, index) => (
             <div
               id={reading.readingTitle}
-              style={{ ...readingBaseStyle, ...reading.readingStyle }}
+              style={
+                index === secondaryReadings.length - 1
+                  ? {
+                      ...readingBaseStyle,
+                      ...reading.readingStyle,
+                      borderRight: "none",
+                    }
+                  : { ...readingBaseStyle, ...reading.readingStyle }
+              }
             >
               <div>{reading.readingTitle}</div>
               <div>
