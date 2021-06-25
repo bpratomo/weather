@@ -1,14 +1,32 @@
-import React from 'react';
-import logo from './logo.svg';
-import {WeatherCard} from "./components/WeatherCard";
-import './App.css';
+import React, { useEffect, useState } from "react";
+import logo from "./logo.svg";
+import { WeatherDashboard } from "./components/WeatherDashboard";
+import { ICurrentWeather } from "./interfaces/weatherInterface";
+import { getWeather } from "./services/WeatherService";
+
+import "./App.css";
+import { WeatherForm } from "./components/WeatherForm";
 
 function App() {
+  const [weather, setWeather] = useState<ICurrentWeather | undefined>();
+
+  async function fetchWeather(cityName: string) {
+    const currentWeather = await getWeather(cityName);
+    if (currentWeather) {
+      setWeather(currentWeather);
+      console.log(currentWeather);
+    }
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <WeatherCard cityName="Amsterdam"/>
-      </header>
+      <div className="container">
+        {weather ? (
+          <WeatherDashboard weather={weather} />
+        ) : (
+          <WeatherForm updateWeather={fetchWeather} />
+        )}
+      </div>
     </div>
   );
 }

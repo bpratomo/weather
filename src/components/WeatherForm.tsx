@@ -13,6 +13,7 @@ export const WeatherForm: FC<WeatherFormProps> = ({ updateWeather }) => {
   }
 
   function handleSubmit(e: SyntheticEvent) {
+    e.preventDefault();
     if (formValue) {
       updateWeather(formValue);
     }
