@@ -1,8 +1,7 @@
-import React, { FunctionComponent, useState } from "react";
+import React, { FunctionComponent} from "react";
 import { getWeatherIconLink } from "../services/WeatherService";
 import { WeatherProps } from "../interfaces/WeatherProps";
 // import { WeatherCards } from "./WeatherCards/WeatherCards";
-import { WeatherCardTemplate } from "./WeatherCards/WeatherCardTemplate";
 import { WindCard } from "./WeatherCards/WindCard";
 import { PressureCard } from "./WeatherCards/PressureCard";
 import { HumidityCard } from "./WeatherCards/HumidityCard";
@@ -39,9 +38,7 @@ const WeatherDashboardMain: FunctionComponent<WeatherProps> = ({ weather }) => {
     textAlign: "center" as "center",
   };
   const iconType = weather?.weather[0].icon;
-  const [iconLink, setIconLink] = useState(
-    iconType ? getWeatherIconLink(iconType) : ""
-  );
+  const iconLink = iconType ? getWeatherIconLink(iconType) : ""
   return (
     <div>
       <div id="weatherCard__icon" style={iconStyle}>

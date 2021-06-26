@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import logo from "./logo.svg";
+import React, {useState } from "react";
 import { WeatherDashboard } from "./components/WeatherDashboard";
 import { ICurrentWeather } from "./interfaces/weatherInterface";
 import { getWeather } from "./services/WeatherService";
