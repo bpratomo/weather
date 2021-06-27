@@ -21,6 +21,34 @@
     <title>Document</title>
   </head>
   <body>
+    <div class="overlay">
+      <section class="weatherCard__sidebar">
+        <h2>Saved Cities</h2>
+        <article class="weatherCard__minicard">
+          <div class="minicard__icon">
+              <img src="https://openweathermap.org/img/wn/10d@4x.png" alt="" />
+
+          </div>
+          <div class="minicard_textcontent">
+            <div class="minicard__city">Amsterdam, NL</div>
+
+            <div id="temp">
+              20°C
+            </div>
+            <div>
+              <div id="minicard__description">
+                <div>Clouds</div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="weatherCard__minicard"></article>
+
+        <article class="weatherCard__minicard"></article>
+      </section>
+    </div>
+
     <div class="container">
       <section class="weatherCard__container">
         <div id="weatherCard__icon">
@@ -79,18 +107,16 @@
           </section>
 
           <section id="weatherCard__pressure" class="minicard">
-            <header> <i class="fas fa-tachometer-alt"></i> Pressure</header>
+            <header><i class="fas fa-tachometer-alt"></i> Pressure</header>
             <div class="hero secondary">
               <div id="weatherCard__pressure" class="weatherCard__left">
                 <div>20°C</div>
               </div>
-
             </div>
           </section>
           <section id="weatherCard__humidity" class="minicard">
             <header><i class="fas fa-tint"></i> Humidity</header>
             <div class="hero secondary">
-
               <div id="weatherCard__humidity" class="weatherCard__left">
                 <div>20°C</div>
               </div>
