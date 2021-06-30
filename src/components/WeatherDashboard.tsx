@@ -5,13 +5,26 @@ import { WindCard } from "./WeatherCards/WindCard";
 import { PressureCard } from "./WeatherCards/PressureCard";
 import { HumidityCard } from "./WeatherCards/HumidityCard";
 import { TemperatureCard } from "./WeatherCards/TemperatureCard";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSave } from "@fortawesome/free-solid-svg-icons";
+import { ICurrentWeather } from "../interfaces/weatherInterface";
 
-export const WeatherDashboard: FunctionComponent<WeatherProps> = ({
+type DashboardProps = {
+  weather: ICurrentWeather;
+  saveWeather: () => void;
+};
+
+export const WeatherDashboard: FunctionComponent<DashboardProps> = ({
   weather,
+  saveWeather,
 }) => {
   return (
     <div className="weatherCard__container">
+      <button style={saveButtonStyle} onClick={saveWeather}>
+        <FontAwesomeIcon icon={faSave} /> Save
+      </button>
       <WeatherDashboardMain weather={weather} />
+
       <WeatherCards weather={weather} />
     </div>
   );
@@ -26,9 +39,9 @@ const WeatherDashboardMain: FunctionComponent<WeatherProps> = ({ weather }) => {
         <img src={iconLink} alt="" />
         <div id="weatherCard__description" style={descStyle}>
           <div>{weather?.weather[0].main}</div>
-          <div id="weatherCard__subDescription">
+          {/* <div id="weatherCard__subDescription">
             {weather?.weather[0].description}
-          </div>
+          </div> */}
         </div>
       </div>
       <div id="weatherCard__city" style={cityNameStyle}>
@@ -69,6 +82,7 @@ export const WeatherCards: FunctionComponent<WeatherProps> = ({ weather }) => {
 // Weather Dashboard styles
 const iconStyle = {
   display: "flex",
+  height:"180px"
 };
 
 const descStyle = {
@@ -92,4 +106,18 @@ const weatherCardsContainerStyle = {
   flexDirection: "row" as "row",
   flexWrap: "wrap" as "wrap",
   justifyContent: "center",
+};
+
+const saveButtonStyle = {
+  backgroundColor: "#6A2C70",
+  color: "white",
+  borderRadius: "10px",
+  height: "40px",
+  width: "100%",
+  maxWidth:"300px",
+  border: "none",
+  fontFamily: "Itim",
+  cursor: "pointer",
+  margin: "auto",
+  fontSize: "large"
 };

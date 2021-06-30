@@ -8,12 +8,14 @@ type SidebarProps = {
   weatherList: ICurrentWeather[] | undefined;
   toggleVisibility: () => void;
   setWeather: (weather: ICurrentWeather) => void;
+  deleteLocation: (weather: ICurrentWeather)=>void;
 };
 
 export const Sidebar: FunctionComponent<SidebarProps> = ({
   weatherList,
   toggleVisibility,
   setWeather,
+  deleteLocation
 }) => {
   return (
     <>
@@ -37,6 +39,7 @@ export const Sidebar: FunctionComponent<SidebarProps> = ({
                 key={weather.name}
                 setWeather={setWeather}
                 toggleVisibility={toggleVisibility}
+                deleteLocation={deleteLocation}
               />
             );
           })

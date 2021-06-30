@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { WeatherDashboard } from "./components/WeatherDashboard";
 import { ICurrentWeather } from "./interfaces/weatherInterface";
-import { getWeather } from "./services/WeatherService";
+import {
+  getWeather,
+  getSavedWeathers,
+  saveLocation,
+  deleteLocation,
+} from "./services/WeatherService";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faSearch, faTimes } from "@fortawesome/free-solid-svg-icons";
 
@@ -42,14 +47,16 @@ const searchBarStyle = {
   position: "absolute" as "absolute",
   right: "10px",
   top: "10px",
-  display:"flex",
-  justifyContent: "space-around"
+  display: "flex",
+  justifyContent: "space-around",
 };
 
 const homeScreenStyle = {
-  marginTop:"80px"
-
-}
+  marginTop: "80px",
+  display: "flex",
+  flexDirection: "column" as "column",
+  justifyContent: "center",
+};
 
 function App() {
   const [weather, setWeather] = useState<ICurrentWeather | undefined>();
@@ -71,40 +78,46 @@ function App() {
     setWeather(weather);
   }
 
-  async function seedWeatherList(
-    cityList: string[]
-  ): Promise<ICurrentWeather[]> {
-    let promiseList = cityList.map((city) => getWeather(city));
-    let weatherList = await Promise.all(promiseList);
-    return weatherList;
+  async function saveWeatherToCollection() {
+    if (weather) {
+      const fullWeatherList = savedWeathers
+        ? savedWeathers.concat(weather)
+        : [weather];
+
+      const updatedWeathers = await saveLocation(fullWeatherList);
+
+      setSavedWeathers(updatedWeathers);
+
+      alert("Weather saved!");
+    }
   }
 
-  function activateSidebar(){
+  async function deleteWeatherFromCollection(weather: ICurrentWeather) {
+    if (savedWeathers) {
+      const updatedWeathers = await deleteLocation(weather, savedWeathers);
+      setSavedWeathers(updatedWeathers)
+    }
+  }
+
+  function activateSidebar() {
     setSidebarVisibility(true);
-    setSearchBarVisibility(false)
+    setSearchBarVisibility(false);
   }
 
- function activateSearchBar(){
-   setSearchBarVisibility(!searchBarVisible)
- }
+  function activateSearchBar() {
+    setSearchBarVisibility(!searchBarVisible);
+  }
 
-  function activateDefaultView(){
+  function activateDefaultView() {
     setSidebarVisibility(false);
-    setSearchBarVisibility(false)
+    setSearchBarVisibility(false);
   }
 
-  function toggleVisibility() {
-  }
+  function toggleVisibility() {}
 
   useEffect(() => {
     console.log("called");
-    seedWeatherList([
-      "Amsterdam",
-      "London",
-      "New York",
-      "Jakarta",
-      "Bandung",
-    ]).then((weathers) => {
+    getSavedWeathers().then((weathers) => {
       setSavedWeathers(weathers);
     });
   }, []);
@@ -113,15 +126,24 @@ function App() {
     <div className="App">
       <div className="container">
         <button style={toggleButtonStyle} onClick={activateSidebar}>
-          <FontAwesomeIcon icon={faBars} /> {searchBarVisible? <></> : <span>Saved Cities</span>}
+          <FontAwesomeIcon icon={faBars} />{" "}
+          {searchBarVisible ? <></> : <span>Saved Cities</span>}
         </button>
 
         <div className="searchBar" style={searchBarStyle}>
           <button style={searchButtonStyle} onClick={activateSearchBar}>
-            
-            {searchBarVisible?<FontAwesomeIcon icon={faTimes} />:<FontAwesomeIcon icon={faSearch} /> }
+            {searchBarVisible ? (
+              <FontAwesomeIcon icon={faTimes} />
+            ) : (
+              <FontAwesomeIcon icon={faSearch} />
+            )}
           </button>
-          {searchBarVisible && <MiniWeatherForm updateWeather={fetchWeather} toggleVisibility={activateDefaultView} />}
+          {searchBarVisible && (
+            <MiniWeatherForm
+              updateWeather={fetchWeather}
+              toggleVisibility={activateDefaultView}
+            />
+          )}
         </div>
 
         {sidebarVisible && (
@@ -129,16 +151,20 @@ function App() {
             weatherList={savedWeathers}
             toggleVisibility={activateDefaultView}
             setWeather={setActiveWeather}
+            deleteLocation={deleteWeatherFromCollection}
           />
         )}
 
-        <div style={homeScreenStyle}>
-          {weather ? (
-            <WeatherDashboard weather={weather} />
-          ) : (
+        {weather ? (
+          <WeatherDashboard
+            weather={weather}
+            saveWeather={saveWeatherToCollection}
+          />
+        ) : (
+          <div style={homeScreenStyle}>
             <WeatherForm updateWeather={fetchWeather} />
-          )}
-        </div>
+          </div>
+        )}
       </div>
     </div>
   );
