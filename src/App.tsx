@@ -121,7 +121,7 @@ function App() {
             
             {searchBarVisible?<FontAwesomeIcon icon={faTimes} />:<FontAwesomeIcon icon={faSearch} /> }
           </button>
-          {searchBarVisible && <MiniWeatherForm updateWeather={fetchWeather}  />}
+          {searchBarVisible && <MiniWeatherForm updateWeather={fetchWeather} toggleVisibility={activateDefaultView} />}
         </div>
 
         {sidebarVisible && (

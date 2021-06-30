@@ -36,6 +36,7 @@ export const Sidebar: FunctionComponent<SidebarProps> = ({
                 weather={weather}
                 key={weather.name}
                 setWeather={setWeather}
+                toggleVisibility={toggleVisibility}
               />
             );
           })

@@ -40,15 +40,12 @@ const headerStyle = {
 };
 
 ///Styles for Mini WeatherForm
-const miniFormStyle={
+const miniFormStyle = {
   display: "flex",
   justifyContent: "space-between",
   height: "100px",
-  boxSizing: "border-box" as "border-box"
-
-
-
-}
+  boxSizing: "border-box" as "border-box",
+};
 
 const miniTextStyle = {
   backgroundColor: "white",
@@ -57,12 +54,10 @@ const miniTextStyle = {
   height: "40px",
   paddingLeft: "5px",
   fontFamily: "Itim",
-  marginRight:"5px",
-  marginLeft:"5px",
-  boxSizing: "border-box" as "border-box"
-
+  marginRight: "5px",
+  marginLeft: "5px",
+  boxSizing: "border-box" as "border-box",
 };
-
 
 const miniButtonStyle = {
   backgroundColor: "#6A2C70",
@@ -73,25 +68,27 @@ const miniButtonStyle = {
   fontFamily: "Itim",
 };
 
-
-
-
-
-
-
 // MINIWEATHERFORM
 type WeatherFormProps = {
   updateWeather: (cityName: string) => void;
+  toggleVisibility?: () => void;
 };
 
-export const MiniWeatherForm: FC<WeatherFormProps> = ({ updateWeather }) => {
-  const [formValue, setFormValue] =
-    useState<string | undefined>("Search for more cities...");
+export const MiniWeatherForm: FC<WeatherFormProps> = ({
+  updateWeather,
+  toggleVisibility,
+}) => {
+  const [formValue, setFormValue] = useState<string | undefined>(
+    "Search for more cities..."
+  );
 
   function handleSubmit(e: SyntheticEvent) {
     e.preventDefault();
     if (formValue) {
       updateWeather(formValue);
+    }
+    if (toggleVisibility) {
+      toggleVisibility();
     }
   }
   const handleChange: ChangeEventHandler<HTMLInputElement> = (e) => {

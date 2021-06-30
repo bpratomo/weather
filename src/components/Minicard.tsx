@@ -7,11 +7,13 @@ import { FunctionComponent } from "react";
 type MinicardProps = {
     weather: ICurrentWeather;
     setWeather: (weather: ICurrentWeather) => void;
+    toggleVisibility: () => void;
   };
   
 export const Minicard: FunctionComponent<MinicardProps> = ({
     weather,
     setWeather,
+    toggleVisibility
   }) => {
     
     const iconType = weather?.weather[0].icon;
@@ -22,6 +24,8 @@ export const Minicard: FunctionComponent<MinicardProps> = ({
         style={minicardStyle}
         onClick={() => {
           setWeather(weather);
+          toggleVisibility()
+          
         }}
       >
         <div style={iconStyle}>
