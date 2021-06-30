@@ -1,7 +1,6 @@
-import React, { FunctionComponent} from "react";
+import React, { FunctionComponent } from "react";
 import { getWeatherIconLink } from "../services/WeatherService";
 import { WeatherProps } from "../interfaces/WeatherProps";
-// import { WeatherCards } from "./WeatherCards/WeatherCards";
 import { WindCard } from "./WeatherCards/WindCard";
 import { PressureCard } from "./WeatherCards/PressureCard";
 import { HumidityCard } from "./WeatherCards/HumidityCard";
@@ -19,26 +18,8 @@ export const WeatherDashboard: FunctionComponent<WeatherProps> = ({
 };
 
 const WeatherDashboardMain: FunctionComponent<WeatherProps> = ({ weather }) => {
-  const iconStyle = {
-    display: "flex",
-  };
-
-  const descStyle = {
-    fontSize: "xx-large",
-    display: "flex",
-    flexDirection: "column" as "column",
-    justifyContent: "center",
-    marginLeft: "-10px",
-  };
-
-  const cityNameStyle = {
-    fontSize: "xxx-large",
-    marginBottom: "1em",
-    marginTop: "-1em",
-    textAlign: "center" as "center",
-  };
   const iconType = weather?.weather[0].icon;
-  const iconLink = iconType ? getWeatherIconLink(iconType) : ""
+  const iconLink = iconType ? getWeatherIconLink(iconType) : "";
   return (
     <div>
       <div id="weatherCard__icon" style={iconStyle}>
@@ -59,12 +40,7 @@ const WeatherDashboardMain: FunctionComponent<WeatherProps> = ({ weather }) => {
 
 export const WeatherCards: FunctionComponent<WeatherProps> = ({ weather }) => {
   const seedCards = ["temperature", "wind", "pressure", "humidity"];
-  const weatherCardsContainerStyle = {
-    display: "flex",
-    flexDirection: "row" as "row",
-    flexWrap: "wrap" as "wrap",
-    justifyContent: "center",
-  };
+
   return (
     <div
       className="weatherCard__info__container"
@@ -87,4 +63,33 @@ export const WeatherCards: FunctionComponent<WeatherProps> = ({ weather }) => {
       })}
     </div>
   );
+};
+
+//Styles
+// Weather Dashboard styles
+const iconStyle = {
+  display: "flex",
+};
+
+const descStyle = {
+  fontSize: "xx-large",
+  display: "flex",
+  flexDirection: "column" as "column",
+  justifyContent: "center",
+  marginLeft: "-10px",
+};
+
+const cityNameStyle = {
+  fontSize: "xxx-large",
+  marginBottom: "1em",
+  marginTop: "-1em",
+  textAlign: "center" as "center",
+};
+
+// WeatherCards Container
+const weatherCardsContainerStyle = {
+  display: "flex",
+  flexDirection: "row" as "row",
+  flexWrap: "wrap" as "wrap",
+  justifyContent: "center",
 };
