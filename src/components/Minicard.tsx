@@ -1,6 +1,6 @@
 import { getWeatherIconLink } from "../services/WeatherService";
 import { ICurrentWeather } from "../interfaces/weatherInterface";
-import { FunctionComponent } from "react";
+import { FunctionComponent, SyntheticEvent } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 
@@ -17,6 +17,12 @@ export const Minicard: FunctionComponent<MinicardProps> = ({
   toggleVisibility,
   deleteLocation
 }) => {
+
+  function handleDelete(e:SyntheticEvent){
+    deleteLocation(weather)
+    e.stopPropagation()
+
+  }
   const iconType = weather?.weather[0].icon;
   const iconLink = iconType ? getWeatherIconLink(iconType) : "";
 
@@ -31,7 +37,7 @@ export const Minicard: FunctionComponent<MinicardProps> = ({
       <div style={iconStyle}>
         <img src={iconLink} alt="" />
       </div>
-      <button style={deleteButtonStyle} onClick={()=>deleteLocation(weather)}>
+      <button style={deleteButtonStyle} onClick={handleDelete}>
         <FontAwesomeIcon icon={faTimes} />
       </button>
       <div style={textContentStyle}>
